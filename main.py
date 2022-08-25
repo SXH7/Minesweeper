@@ -32,4 +32,21 @@ while(mines<=4):
     grid[x, y] = 1
     mines+=1
 
+win = True
 
+field = numpy.array([["x", "x", "x", "x", "x"],
+                    ["x", "x", "x", "x", "x"],
+                    ["x", "x", "x", "x", "x"],
+                    ["x", "x", "x", "x", "x"],
+                    ["x", "x", "x", "x", "x"]])
+
+
+while win:
+    print(field)
+    turn = []
+    for x in range(2):
+        turn.append(int(input("enter coordinate:")))
+    if((grid[turn[0]])[turn[1]]):
+        print("You clicked on a mine :<")
+        win == False
+        break
