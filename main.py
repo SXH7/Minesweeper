@@ -48,5 +48,6 @@ while win:
         turn.append(int(input("enter coordinate:")))
     if((grid[turn[0]])[turn[1]]):
         print("You clicked on a mine :<")
+        print(grid)
         win == False
         break
