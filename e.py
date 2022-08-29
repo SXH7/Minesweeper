@@ -37,7 +37,20 @@ class game:
         for locations in mineLocations:
             field[locations[0]][locations[1]] = "O"
         print(field)
-        
+
+    def countMines(self, x, y):
+        adj = 0
+        count = 0
+        xcords = [x-1, x-1, x-1, x, x, x, x+1, x+1, x+1]
+        ycords = [y-1, y, y+1, y-1, y, y+1, y-1, y, y+1]
+        while(count < 9):
+            if(xcords[count] < 0 or ycords[count] < 0):
+                count+=1
+                continue
+            if(grid[xcords[count]][ycords[count]] == 1):
+                adj+=1
+            count+=1
+        print(adj)
 
     def start(self):
         win = True
@@ -49,6 +62,8 @@ class game:
                 print("You lose :(")
                 self.gameOver()
                 break
+            else:
+                self.countMines(xcord, ycord)
                 
 
 game()
