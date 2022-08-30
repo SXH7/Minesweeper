@@ -4,12 +4,14 @@ import pygame
 class game:
     def __init__(self):
         global grid
-        global field 
-        grid = [[0, 0, 0, 0, 0], 
+        global field
+        global check
+        check = []
+        grid = ([0, 0, 0, 0, 0], 
                 [0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0]]
+                [0, 0, 0, 0, 0])
 
         field = [["x", "x", "x", "x", "x"],
                  ["x", "x", "x", "x", "x"],
@@ -47,10 +49,35 @@ class game:
             if(xcords[count] < 0 or ycords[count] < 0):
                 count+=1
                 continue
-            if(grid[xcords[count]][ycords[count]] == 1):
-                adj+=1
+            try:
+                if(grid[xcords[count]][ycords[count]] == 1):
+                    adj+=1
+            except IndexError:
+                pass
             count+=1
-        print(adj)
+        return adj
+
+    def reveal(self, row, col):
+        rows = [row-1, row-1, row-1, row, row, row, row+1, row+1, row+1]
+        cols = [col-1, col, col+1, col-1, col, col+1, col-1, col, col+1]
+        if [row, col] not in check:
+            check.append([row, col])
+            if(self.countMines(row, col) == 0):
+                field[row][col] = "0"
+                count = 0
+                while(count <9):
+                    if(rows[count] < 0 or cols[count] < 0):
+                        count+=1
+                        continue
+                    try:
+                        self.countMines(rows[count], cols[count])
+                    except IndexError:
+                        pass
+                    count+=1
+            else:
+                field[row][col] = self.countMines(row, col)
+
+
 
     def start(self):
         win = True
@@ -64,6 +91,7 @@ class game:
                 break
             else:
                 self.countMines(xcord, ycord)
+                self.reveal(xcord, ycord)
                 
 
 game()
