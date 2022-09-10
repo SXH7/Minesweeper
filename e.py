@@ -5,8 +5,8 @@ class game:
     def __init__(self):
         global grid
         global field
-        global check
-        check = []
+        global visited
+        visited = []
         grid = ([0, 0, 0, 0, 0], 
                 [0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0],
@@ -40,7 +40,7 @@ class game:
             field[locations[0]][locations[1]] = "O"
         print(field)
 
-    def countMines(self, x, y):
+    '''def countMines(self, x, y):
         adj = 0
         count = 0
         xcords = [x-1, x-1, x-1, x, x, x, x+1, x+1, x+1]
@@ -55,28 +55,34 @@ class game:
             except IndexError:
                 pass
             count+=1
-        return adj
+        return adj'''
 
     def reveal(self, row, col):
-        rows = [row-1, row-1, row-1, row, row, row, row+1, row+1, row+1]
-        cols = [col-1, col, col+1, col-1, col, col+1, col-1, col, col+1]
-        if [row, col] not in check:
-            check.append([row, col])
-            if(self.countMines(row, col) == 0):
-                field[row][col] = "0"
-                count = 0
-                while(count <9):
-                    if(rows[count] < 0 or cols[count] < 0):
-                        count+=1
-                        continue
-                    try:
-                        self.countMines(rows[count], cols[count])
-                    except IndexError:
-                        pass
-                    count+=1
-            else:
-                field[row][col] = self.countMines(row, col)
-
+        if((row, col) not in visited):
+            mines = 0
+            visited.append((row, col))
+            for i in range(row-1, row+2):
+                for j in range(col-1, col+2):
+                    if not (row==i and col==j):
+                        if((i >= 0 and i<5) and (j >= 0 and j<5)):
+                            if(grid[i][j] == 1):
+                                mines+=1
+            field[row][col] = mines
+            print(mines)
+            if(grid[row-1][col] != 1 and row-1>=0 ):
+                self.reveal(row-1, col)
+            if(grid[row+1][col] != 1 and row+1<5):
+                self.reveal(row+1, col)
+            if(grid[row][col+1]!= 1 and col+1<5):
+                self.reveal(row, col+1)
+            if(grid[row][col-1] != 1 and col-1 >=0 ):
+                self.reveal(row, col-1)
+            if(grid[row+1][col+1] != 1 and row+1<5 and col+1<5):
+                self.reveal(row+1, col+1)
+            if(grid[row-1][col-1] != 1 and row-1>=0 and col-1>=0):
+                self.reveal(row-1, col-1)
+        else:
+            pass
 
 
     def start(self):
@@ -90,7 +96,6 @@ class game:
                 self.gameOver()
                 break
             else:
-                self.countMines(xcord, ycord)
                 self.reveal(xcord, ycord)
                 
 
