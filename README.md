@@ -1,3 +1,3 @@
 # Minesweeper
 
-## Minesweeper creaed in python using Depth First Search algorithm
+### Minesweeper creaed in python using Depth First Search algorithm
