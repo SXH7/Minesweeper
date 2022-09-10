@@ -58,7 +58,7 @@ class game:
         return adj'''
 
     def reveal(self, row, col):
-        if((row, col) not in visited):
+        if((row, col) not in visited and -1<row<5 and -1<col<5):
             mines = 0
             visited.append((row, col))
             for i in range(row-1, row+2):
@@ -69,18 +69,12 @@ class game:
                                 mines+=1
             field[row][col] = mines
             print(mines)
-            if(grid[row-1][col] != 1 and row-1>=0 ):
-                self.reveal(row-1, col)
-            if(grid[row+1][col] != 1 and row+1<5):
-                self.reveal(row+1, col)
-            if(grid[row][col+1]!= 1 and col+1<5):
-                self.reveal(row, col+1)
-            if(grid[row][col-1] != 1 and col-1 >=0 ):
-                self.reveal(row, col-1)
-            if(grid[row+1][col+1] != 1 and row+1<5 and col+1<5):
-                self.reveal(row+1, col+1)
-            if(grid[row-1][col-1] != 1 and row-1>=0 and col-1>=0):
-                self.reveal(row-1, col-1)
+            self.reveal(row-1, col)
+            self.reveal(row+1, col)
+            self.reveal(row, col+1)
+            self.reveal(row, col-1)
+            self.reveal(row+1, col+1)
+            self.reveal(row-1, col-1)
         else:
             pass
 
