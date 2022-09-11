@@ -7,6 +7,7 @@ Minesweeper in python using Depth First Search algorithm
 
 ### To Do 📝
 ✅Add reveal functionality <br>
+✅Replace mines counter code <br>
 ⬜Add difficulty settings and automatic grid generation <br>
-⬜Add flagging functionality 
+⬜Add flagging functionality <br>
 ⬜Add GUI using PyGame
