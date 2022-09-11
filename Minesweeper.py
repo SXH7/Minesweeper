@@ -3,50 +3,58 @@ import pygame
 
 class game:
     def __init__(self):
-        global grid
-        global field
-        global visited
-        visited = []
-        grid = ([0, 0, 0, 0, 0, 0, 0, 0], 
-                [0, 0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0, 0])
-
-        field = [["x", "x", "x", "x", "x", "x", "x", "x"],
-                 ["x", "x", "x", "x", "x", "x", "x", "x"],
-                 ["x", "x", "x", "x", "x", "x", "x", "x"],
-                 ["x", "x", "x", "x", "x", "x", "x", "x"],
-                 ["x", "x", "x", "x", "x", "x", "x", "x"],
-                 ["x", "x", "x", "x", "x", "x", "x", "x"],
-                 ["x", "x", "x", "x", "x", "x", "x", "x"],
-                 ["x", "x", "x", "x", "x", "x", "x", "x"],]
-        self.setup()
         self.start()
-        
-    def setup(self):
-        global mineLocations
+    
+    def generateGrid(self):
+        side = 0
+        grid = []
+        field = []
+        difficulty = input('What difficulty do you want to choose: "Easy", "Medium" or "hard"?')
+        difficulty = difficulty.lower()
+        if(difficulty == "easy"):
+            side = 8
+        elif(difficulty == "medium"):
+            side = 10
+        elif(difficulty == "hard"):
+            side = 12
+        else:
+            print("Your response was invalid, maybe there was a typo?")
+
+        count = 0
+        while(count < side):
+            count2 = 0
+            temp1 = []
+            temp2 = []
+            while(count2 < side):
+                temp1.append(0)
+                temp2.append("x")
+                count2+=1
+            grid.append(temp1)
+            field.append(temp2)
+            count+=1
+        mineLocations = self.addMines(grid, side)
+        return grid, field, mineLocations
+
+    def addMines(self, grid, side):
         mines = 0
         mineLocations = []
-        while(mines<=7):
-            x = random.randint(0, 7)
-            y = random.randint(0, 7)
+        while(mines < side):
+            x = random.randint(0, side-1)
+            y = random.randint(0, side-1)
             if(grid[x][y] == 1):
                 continue 
             grid[x][y] = 1
             mineLocations.append((x, y))
             mines+=1
-        print(grid)
+        print(grid)                       # FOR DEVTEST ONLY
+        return mineLocations
 
-    def gameOver(self):
+    def gameOver(self, field, mineLocations):
         for locations in mineLocations:
             field[locations[0]][locations[1]] = "O"
         print(field)
 
-    def reveal(self, row, col):
+    def reveal(self, row, col, field, grid, visited):
         if((row, col) not in visited and -1<row<5 and -1<col<5 and grid[row][col] != 1):
             mines = 0
             visited.append((row, col))
@@ -65,18 +73,18 @@ class game:
                 count+=1
             
             field[row][col] = mines
-            print(mines)
-            self.reveal(row-1, col)
-            self.reveal(row+1, col)
-            self.reveal(row, col+1)
-            self.reveal(row, col-1)
-            self.reveal(row+1, col+1)
-            self.reveal(row-1, col-1)
+            self.reveal(row-1, col, field, grid, visited)
+            self.reveal(row+1, col, field, grid, visited)
+            self.reveal(row, col+1, field, grid, visited)
+            self.reveal(row, col-1, field, grid, visited)
+            self.reveal(row+1, col+1, field, grid, visited)
+            self.reveal(row-1, col-1, field, grid, visited)
         else:
             pass
 
-
     def start(self):
+        grid, field, mineLocations = self.generateGrid()
+        visited = []
         win = True
         while win:
             print(field)
@@ -84,9 +92,9 @@ class game:
             ycord = int(input("Choose Y coordinate")) 
             if(grid[xcord][ycord] == 1):
                 print("You lose :(")
-                self.gameOver()
+                self.gameOver(field, mineLocations)
                 break
             else:
-                self.reveal(xcord, ycord)
+                self.reveal(xcord, ycord, field, grid, visited)
                 
 game()
