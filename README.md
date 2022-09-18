@@ -8,6 +8,9 @@ Minesweeper in python using Depth First Search algorithm
 ✅Add difficulty settings and automatic grid generation <br>
 ✅Making loop break when game is won <br>
 ✅Fix the bug in reveal function <br>
-⬜Add flagging functionality <br>
+⬜Make the sprites <br>
 ⬜Add GUI using PyGame <br>
+⬜Add flagging functionality <br>
+
+
 
