@@ -9,7 +9,7 @@ Minesweeper in python using Depth First Search algorithm
 ✅Making loop break when game is won <br>
 ✅Fix the bug in reveal function <br>
 ⬜Make the sprites <br>
-⬜Add GUI using PyGame <br>
+⬜Make a basic main menu <br>
 ⬜Add flagging functionality <br>
 
 
