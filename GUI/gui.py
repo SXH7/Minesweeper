@@ -10,8 +10,9 @@ win.fill((60, 25, 60))
 pygame.display.set_caption("Minesweeper")
 
 start = menu.makeMenu(win)
-win.fill((0, 0, 0))
-
+win.fill((60, 25, 60))
+difficulty = menu.difficulty(win)
+win.fill((60, 25, 60))
 
 
 # MAINLOOP OF THE GAME
