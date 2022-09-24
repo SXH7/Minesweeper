@@ -1,5 +1,6 @@
 import pygame
 from mainmenu import menu
+from grid import makeGrid
 
 # PYGAME SETUP
 
@@ -14,6 +15,8 @@ win.fill((60, 25, 60))
 difficulty = menu.difficulty(win)
 win.fill((60, 25, 60))
 
+grid, field = makeGrid.generateGrid(difficulty)
+minesLocations = makeGrid.addMines(difficulty, grid)
 
 # MAINLOOP OF THE GAME
 while start:
