@@ -18,8 +18,7 @@ class game:
         else:
             print("Your response was invalid, maybe there was a typo?")
 
-        count = 0
-        while(count < side):
+        for count in range(side):
             count2 = 0
             temp1 = []
             temp2 = []
