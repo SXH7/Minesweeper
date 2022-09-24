@@ -22,10 +22,9 @@ class game:
             count2 = 0
             temp1 = []
             temp2 = []
-            while(count2 < side):
+            for count2 in range(side):
                 temp1.append(0)
                 temp2.append("x")
-                count2+=1
             grid.append(temp1)
             field.append(temp2)
             count+=1
