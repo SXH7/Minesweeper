@@ -1,4 +1,7 @@
 from random import randint
+import pygame
+
+cell = pygame.image.load("GUI\Assets\Art\cell.png")
 
 class makeGrid():
     def __init__(self, side, grid):
@@ -33,7 +36,12 @@ class makeGrid():
             count+=1
         return grid, field
 
-    '''def drawGrid(self, side):
+    def drawGrid(side, win):
+        if(side == 8):
+            sidewidth = 70
         for row in range (side):
             for col in range (side):
-                cell = '''
+                constr = row*sidewidth
+                constc = col*sidewidth
+                win.blit(cell, (65+constr, 75+constc))
+            
