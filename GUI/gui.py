@@ -1,7 +1,7 @@
 import pygame
 from mainmenu import menu
 from grid import makeGrid
-#from detectClick import click
+from detectClick import click
 
 # PYGAME SETUP
 
@@ -25,10 +25,12 @@ makeGrid.drawGrid(difficulty, win)
 
 # MAINLOOP OF THE GAME
 while start:
+    pos = pygame.mouse.get_pos()
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
-        #if event.type == pygame.MOUSEBUTTONDOWN:
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            print(click.checkBlock(difficulty, pos))
             
     
 
