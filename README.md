@@ -10,5 +10,4 @@ Minesweeper in python using Depth First Search algorithm
 ✅Add click detection
 ⬜Update the gui grid according to the text grid <br>
 ⬜Add flagging functionality <br>
-⬜Make GUI minesweeper work on easy mode
 
