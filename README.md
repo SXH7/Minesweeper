@@ -7,7 +7,7 @@ Minesweeper in python using Depth First Search algorithm
 ### To Do 📝
 ✅Add difficulty settings and automatic grid generation <br>
 ✅Work on clearing the window when play button pressed <br>
-✅Add click detection
+✅Add click detection <br>
 ⬜Update the gui grid according to the text grid <br>
 ⬜Add flagging functionality <br>
 
