@@ -55,6 +55,7 @@ class game:
 
     def reveal(self, row, col, field, grid, visited, side, mines):
         if((row, col) not in visited and -1<row< side and -1<col< side and mines == 0):
+            #mines = 0
             visited.append((row, col))
             count = 0
             xcords = [row-1, row-1, row-1, row, row, row, row+1, row+1, row+1]
