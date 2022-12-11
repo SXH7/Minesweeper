@@ -3,26 +3,30 @@
 
 using namespace std;
 
-int gridgen(int side){
-    int counter = 0, counter2 = 0;
-    char arr[8];
-    while(counter < side){
-        while(counter2 < side){
-            arr[counter2] = 'e';
-            counter2++;
-        }
-        counter++;
-    }
-
-    return arr[8];
+void gridgen(int side){
+    cout <<"test";
 }
 
 int main(){
-    
-    int side = 8;
-    char arr[8] = gridgen(side);
-    
 
+    int side;
+    char x;
+
+    cout << "Enter the difficulty. E for Easy, M for medium, H for hard. \n";
+    cin >> x;
+    x = toupper(x);
+
+    if(x == 'E'){
+        side = 8;
+    }
+    else if(x == 'M'){
+        side = 10;
+    }
+    else if(x == 'H'){
+        side = 12;
+    }
+
+    gridgen(side);
 
     return 0;
 }
