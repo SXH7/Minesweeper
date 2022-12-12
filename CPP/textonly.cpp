@@ -1,19 +1,37 @@
 #include<iostream>
-#include<cstring>
-
+#include<cstdlib>
 
 using namespace std;
 
 void addmines(int side, char grid[][8], char field[][8]){
-    int counter1 = 0;
+    int counter1 = 0, mines[8], check = 0;
     while(counter1<side){
         int counter2 = 0;
         while(counter2 < side){
             field[counter1][counter2] = 'x';
+            grid[counter1][counter2] = '0';
             counter2++;
         }
         counter1++;
     }
+    counter1 = 0;
+    while(counter1<side){
+        int x = (rand()%10), y = (rand()%10), counter2 = 0;
+        while(counter2<side){
+            if(mines[counter1] == (x, y)){
+                check = 1;
+            }
+            counter2++;
+        }
+
+        if(check){
+            continue;
+        }
+        grid[x][y] = 'M';
+        mines[counter1] = (x, y);
+        counter1++;
+    }
+
 }
 
 int main(){
@@ -36,6 +54,16 @@ int main(){
     } */
 
     addmines(side, grid, field);
+
+    int counter1 = 0;
+    while(counter1<side){
+        int counter2 = 0;
+        while(counter2 < side){
+            cout << grid[counter1][counter2];
+            counter2++;
+        }
+        counter1++;
+    }
 
     return 0;
 }
