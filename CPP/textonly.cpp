@@ -1,5 +1,6 @@
 #include<iostream>
 #include<cstdlib>
+#include<time.h>
 
 using namespace std;
 
@@ -15,6 +16,7 @@ void addmines(int side, char grid[][8], char field[][8]){
         counter1++;
     }
     counter1 = 0;
+    srand((unsigned) time(NULL));
     while(counter1<side){
         int x = (rand()%10), y = (rand()%10), counter2 = 0;
         while(counter2<side){
@@ -57,7 +59,7 @@ int main(){
 
     int counter1 = 0;
     while(counter1<side){
-        int counter2 = 0;
+        int counter2 = 0; 
         while(counter2 < side){
             cout << grid[counter1][counter2];
             counter2++;
@@ -65,5 +67,5 @@ int main(){
         counter1++;
     }
 
-    return 0;
+    return 0;   
 }
