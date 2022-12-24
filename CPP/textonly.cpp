@@ -4,68 +4,65 @@
 
 using namespace std;
 
-void addmines(int side, char grid[][8], char field[][8]){
-    int counter1 = 0, mines[8], check = 0;
-    while(counter1<side){
-        int counter2 = 0;
-        while(counter2 < side){
+
+int main(){
+    int size;
+
+    cout << "Enter size of grid: " ;
+    cin >> size;
+    cout << endl;
+
+    int grid[size][size], counter1 = 0, counter2 = 0, xcords[size], ycords[size], x, y;
+    char field[size][size];
+    bool check;
+    
+
+    // Initializes the grid and field
+    while(counter1 < size){
+        counter2 = 0;
+        while(counter2 < size){
             field[counter1][counter2] = 'x';
-            grid[counter1][counter2] = '0';
+            grid[counter1][counter2] = 0;
             counter2++;
         }
         counter1++;
     }
-    counter1 = 0;
-    srand((unsigned) time(NULL));
-    while(counter1<side){
-        int x = (rand()%10), y = (rand()%10), counter2 = 0;
-        while(counter2<side){
-            if(mines[counter1] == (x, y)){
-                check = 1;
+
+    counter1 = 0, counter2 = 0;
+
+
+    // Adds mines and checks there are no duplicates
+    srand(time(0));
+    while(counter1 < size){
+        check = false;
+        counter2 = 0;
+        x = rand()%size;
+        y = rand()%size;
+        while(counter2 < size){
+            if(xcords[counter2] == x && ycords[counter2] == y){
+                check = true;
             }
             counter2++;
         }
-
         if(check){
             continue;
         }
-        grid[x][y] = 'M';
-        mines[counter1] = (x, y);
+        xcords[counter1] = x;
+        ycords[counter1] = y;
+        grid[x][y] = 1;
         counter1++;
+
     }
 
-}
-
-int main(){
-
-    int side = 8;
-    char x, grid[8][8], field[8][8];
-
-    /* cout << "Enter the difficulty. E for Easy, M for medium, H for hard. \n";
-    cin >> x;
-    x = toupper(x);
-
-    if(x == 'E'){
-        side = 8;
+    counter1 = 0, counter2 = 0;
+    while(counter1<size){
+            counter2 = 0; 
+            while(counter2 < size){
+                cout << grid[counter1][counter2] << " ";
+                counter2++;
+            }
+            cout << endl;
+            counter1++;
     }
-    else if(x == 'M'){
-        side = 10;
-    }
-    else if(x == 'H'){
-        side = 12;
-    } */
-
-    addmines(side, grid, field);
-
-    int counter1 = 0;
-    while(counter1<side){
-        int counter2 = 0; 
-        while(counter2 < side){
-            cout << grid[counter1][counter2];
-            counter2++;
-        }
-        counter1++;
-    }
-
-    return 0;   
+    
 }
