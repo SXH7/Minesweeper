@@ -38,6 +38,107 @@ void showField(char field[][50]){
     }
 }
 
+bool sanityCheck(int x, int y){
+    if(x > 0 && y > 0 && x < SIDE && y < SIDE){
+        return true;
+    }
+    else{ 
+        return false;
+    }
+}
+
+int countMines(int grid[][50], int x, int y){
+    int count = 0;
+
+    if(sanityCheck(x-1, y+1) && grid[x-1][y+1]){
+        count++;
+    }
+    if(sanityCheck(x, y+1) && grid[x][y+1]){
+        count++;
+    }
+    if(sanityCheck(x+1, y+1) && grid[x+1][y+1]){
+        count++;
+    }
+    if(sanityCheck(x-1, y-1) && grid[x-1][y-1]){
+        count++;
+    }
+    if(sanityCheck(x, y-1) && grid[x][y-1]){
+        count++;
+    }
+    if(sanityCheck(x+1, y-1) && grid[x+1][y-1]){
+        count++;
+    }
+    if(sanityCheck(x-1, y) && grid[x-1][y]){
+        count++;
+    }
+    if(sanityCheck(x+1, y) && grid[x+1][y]){
+        count++;
+    }
+
+    return count;
+    
+}
+
+bool reveal(int x, int y, char field[][50], int grid[][50]){
+
+    if(field[x][y] != 'x'){
+        return false;
+    }
+
+    if(grid[x][y]){
+        cout << "You Lost :<";
+        return false;
+    }
+    else{
+        int count = countMines(grid, x, y);
+        field[x][y] = count + '0';
+
+        if(!count){
+            if(sanityCheck(x-1, y) && !grid[x-1][y]){
+                reveal(x-1, y, field, grid);
+            }
+            if(sanityCheck(x+1, y) && !grid[x+1][y]){
+                reveal(x+1, y, field, grid);
+            }
+            if(sanityCheck(x-1, y-1 && !grid[x-1][y-1])){
+                reveal(x-1, y-1, field, grid);
+            }
+            if(sanityCheck(x, y-1) && !grid[x][y-1]){
+                reveal(x, y-1, field, grid);
+            }
+            if(sanityCheck(x+1, y-1) && !grid[x+1][y-1]){
+                reveal(x+1, y-1, field, grid);
+            }
+
+            if(sanityCheck(x-1, y+1) && !grid[x-1][y+1]){
+                reveal(x-1, y+1, field, grid);
+            }
+            if(sanityCheck(x, y+1) && !grid[x][y+1]){
+                reveal(x, y+1, field, grid);
+            }
+            if(sanityCheck(x+1, y+1) && !grid[x+1][y+1]){
+                reveal(x+1, y+1, field, grid);
+            }
+        }
+    
+        return true;
+
+    }
+
+}
+
+bool win(char field[][50], int grid[][50]){
+    int unrevealed = 0;
+    for(int i = 0; i < SIDE; i++){
+        for(int j = 0; j < SIDE; j++){
+            if(!grid[i][j] && field[i][j]){
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
 int main(){
 
     bool game = true;
@@ -63,6 +164,12 @@ int main(){
         cout << "Enter the Y value: ";
         cin >> y;
 
+        game = reveal(x, y, field, grid);
+
+        if(win(field, grid)){
+            cout << "You Win!";
+            break;
+        }
 
     }
 
