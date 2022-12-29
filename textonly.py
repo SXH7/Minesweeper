@@ -37,7 +37,7 @@ class game:
         while(mines < side):
             x = random.randint(0, side-1)
             y = random.randint(0, side-1)
-            if(grid[x][y] == 1):
+            if(grid[x][y]):
                 continue 
             if((x == xc and y == yc) or (x == xc and y == yc-1) or (x == xc and y == yc+1) 
                or (x == xc+1 and y == yc) or (x == xc+1 and y == yc+1) or (x == xc+1 and y == yc-1)
